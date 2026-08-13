@@ -26,9 +26,7 @@ export async function GET(request: Request) {
     ? requestedIndex
     : getMondayWeekIndex(new Date());
   const page = (weekIndex % PAGE_RANGE) + 1;
-
-  console.log(`[wallpaper] fetching from Pexels: weekIndex=${weekIndex} page=${page}`);
-
+  
   const res = await fetch(
     `https://api.pexels.com/v1/search?query=kpop&orientation=landscape&per_page=1&page=${page}`,
     {

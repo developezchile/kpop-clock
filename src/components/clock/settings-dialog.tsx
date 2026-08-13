@@ -70,7 +70,7 @@ export function SettingsDialog({
             <Input
               id="user-name"
               type="text"
-              placeholder="Ej. Francisco"
+              placeholder="Dominga"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               maxLength={30}
