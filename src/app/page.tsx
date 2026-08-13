@@ -7,6 +7,7 @@ import { useWallpaper } from "@/hooks/use-wallpaper";
 import { useAlarmSoundSetting } from "@/hooks/use-alarm-sound-setting";
 import { ClockDisplay } from "@/components/clock/clock-display";
 import { SpotifyEmbed } from "@/components/clock/spotify-embed";
+import { WeatherWidget } from "@/components/clock/weather-widget";
 import { AlarmsDialog } from "@/components/clock/alarms-dialog";
 import { AlarmRingingDialog } from "@/components/clock/alarm-ringing-dialog";
 import { SettingsDialog } from "@/components/clock/settings-dialog";
@@ -65,7 +66,10 @@ export default function Home() {
           <SpotifyEmbed />
         </div>
 
-        <ClockDisplay now={now} name={name} nextAlarm={nextAlarm} />
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <WeatherWidget />
+          <ClockDisplay now={now} name={name} nextAlarm={nextAlarm} />
+        </div>
       </div>
 
       {showWallpaper && (
