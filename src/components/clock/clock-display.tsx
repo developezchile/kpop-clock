@@ -31,7 +31,7 @@ export function ClockDisplay({ now, name, nextAlarm }: ClockDisplayProps) {
   if (!now) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-2">
-        <div className="h-[18vw] w-[70vw] max-w-2xl animate-pulse rounded-2xl bg-white/5 [@media(orientation:landscape)]:h-[20vh] [@media(orientation:landscape)]:w-[40vw]" />
+        <div className="h-[14vw] w-[60vw] max-w-xl animate-pulse rounded-2xl bg-white/5 [@media(orientation:landscape)]:h-[16vh] [@media(orientation:landscape)]:w-[32vw]" />
       </div>
     );
   }
@@ -49,23 +49,23 @@ export function ClockDisplay({ now, name, nextAlarm }: ClockDisplayProps) {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-      <p className="text-[4.5vw] font-medium text-emerald-400 font-[family-name:var(--font-geist)] [@media(orientation:landscape)]:text-[min(6.5vh,4.9vw)]">
+      <p className="text-[3.5vw] font-medium text-emerald-400 font-[family-name:var(--font-geist)] [@media(orientation:landscape)]:text-[min(5vh,3.8vw)]">
         {getGreeting(now.getHours(), name)}
       </p>
       <div className="flex items-end gap-2 font-mono font-semibold tracking-tight tabular-nums text-white sm:gap-3">
-        <span className="text-[18vw] leading-none [@media(orientation:landscape)]:text-[min(36vh,27vw)]">
+        <span className="text-[14vw] leading-none [@media(orientation:landscape)]:text-[min(26vh,20vw)]">
           {hours}:{minutes}
         </span>
-        <span className="mb-[1vw] flex flex-col items-start gap-1 text-[4vw] leading-none text-white/50 [@media(orientation:landscape)]:mb-[2.5vh] [@media(orientation:landscape)]:text-[min(8vh,6vw)]">
+        <span className="mb-[1vw] flex flex-col items-start gap-1 text-[3vw] leading-none text-white/50 [@media(orientation:landscape)]:mb-[2vh] [@media(orientation:landscape)]:text-[min(6vh,4.5vw)]">
           <span>{seconds}</span>
           <span className="text-emerald-400">{period}</span>
         </span>
       </div>
-      <p className="text-[4vw] font-medium capitalize text-white/60 [@media(orientation:landscape)]:text-[min(6vh,4.5vw)]">
+      <p className="text-[3vw] font-medium capitalize text-white/60 [@media(orientation:landscape)]:text-[min(4.5vh,3.4vw)]">
         {dateLabel}
       </p>
       {nextAlarm && (
-        <p className="text-[4vw] text-white/50 [@media(orientation:landscape)]:text-[min(5.5vh,4.1vw)]">
+        <p className="text-[3vw] text-white/50 [@media(orientation:landscape)]:text-[min(4vh,3vw)]">
           {formatNextAlarm(nextAlarm, now)}
         </p>
       )}

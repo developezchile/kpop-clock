@@ -1,19 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { AlarmClock } from "lucide-react";
 import { useClock } from "@/hooks/use-clock";
 import { useAlarms } from "@/hooks/use-alarms";
 import { useUserName } from "@/hooks/use-user-name";
 import { useWallpaper } from "@/hooks/use-wallpaper";
 import { useAlarmSoundSetting } from "@/hooks/use-alarm-sound-setting";
 import { ClockDisplay } from "@/components/clock/clock-display";
-import { AlarmList } from "@/components/clock/alarm-list";
-import { AddAlarmDialog } from "@/components/clock/add-alarm-dialog";
+import { SpotifyEmbed } from "@/components/clock/spotify-embed";
+import { AlarmsDialog } from "@/components/clock/alarms-dialog";
 import { AlarmRingingDialog } from "@/components/clock/alarm-ringing-dialog";
 import { SettingsDialog } from "@/components/clock/settings-dialog";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   const now = useClock();
@@ -35,7 +31,6 @@ export default function Home() {
     snoozeRingingAlarm,
     nextAlarm,
   } = useAlarms(now);
-  const [showAlarms, setShowAlarms] = useState(false);
   const showWallpaper = wallpaperEnabled && !!wallpaper;
 
   return (
@@ -47,17 +42,14 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/55 to-black/75" />
       )}
 
-      <div className="absolute top-4 right-4 z-20 flex items-center gap-1 [@media(orientation:landscape)]:top-6 [@media(orientation:landscape)]:right-auto [@media(orientation:landscape)]:left-6">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`text-white/50 hover:text-white ${showAlarms ? "text-white" : ""}`}
-          aria-label={showAlarms ? "Ocultar alarmas" : "Mostrar alarmas"}
-          aria-pressed={showAlarms}
-          onClick={() => setShowAlarms((prev) => !prev)}
-        >
-          <AlarmClock className="size-5" />
-        </Button>
+      <div className="absolute top-4 right-4 z-20 flex items-center gap-1 [@media(orientation:landscape)]:top-6 [@media(orientation:landscape)]:right-6">
+        <AlarmsDialog
+          alarms={alarms}
+          onToggle={toggleAlarm}
+          onRemove={removeAlarm}
+          onEdit={updateAlarm}
+          onAdd={addAlarm}
+        />
         <SettingsDialog
           name={name}
           onSave={updateName}
@@ -69,28 +61,11 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col gap-4 [@media(orientation:landscape)]:flex-row [@media(orientation:landscape)]:items-stretch [@media(orientation:landscape)]:gap-6">
+        <div className="flex items-center [@media(orientation:landscape)]:w-full [@media(orientation:landscape)]:max-w-[260px]">
+          <SpotifyEmbed />
+        </div>
+
         <ClockDisplay now={now} name={name} nextAlarm={nextAlarm} />
-
-        {showAlarms && (
-          <>
-            <Separator className="my-1 bg-white/10 [@media(orientation:landscape)]:my-0 [@media(orientation:landscape)]:h-auto [@media(orientation:landscape)]:w-px" />
-
-            <div className="flex min-h-0 flex-1 flex-col gap-3 [@media(orientation:landscape)]:max-w-xs">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-white/50">
-                  Alarmas
-                </h2>
-                <AddAlarmDialog onAdd={addAlarm} />
-              </div>
-              <AlarmList
-                alarms={alarms}
-                onToggle={toggleAlarm}
-                onRemove={removeAlarm}
-                onEdit={updateAlarm}
-              />
-            </div>
-          </>
-        )}
       </div>
 
       {showWallpaper && (
